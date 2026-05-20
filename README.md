@@ -223,6 +223,10 @@ Specify the number of unit cells to expand in each direction around the central 
 Save calculation results to a pickle file.
 - **Example**: `mcal xxx.cif p -p`
 
+#### `-j, --json`
+Save calculation results to a JSON file (`<input>_result.json`). Contains reorganization energy (with intermediate energies), transfer integrals, diffusion coefficient tensor, mobility tensor, eigenvalues, and eigenvectors, along with metadata (mcal version, method, backend). Can be combined with `-p`.
+- **Example**: `mcal xxx.cif p -j`
+
 #### `--plot-plane <plane>`
 Plot mobility tensor as a 2D polar plot on specified crystallographic plane.
 - **Available planes**: `ab`, `ac`, `ba`, `bc`, `ca`, `cb`

@@ -236,8 +236,10 @@
 <span></span><span class="sd">&quot;&quot;&quot;mcal&quot;&quot;&quot;</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">importlib.metadata</span><span class="w"> </span><span class="kn">import</span> <span class="n">PackageNotFoundError</span><span class="p">,</span> <span class="n">version</span> <span class="k">as</span> <span class="n">_pkg_version</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">time</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
@@ -339,6 +341,7 @@
         <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--pickle&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;save to pickle the result of calculation&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-j&#39;</span><span class="p">,</span> <span class="s1">&#39;--json&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;save the result of calculation as JSON&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
         <span class="s1">&#39;--cellsize&#39;</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;number of unit cells to expand in each direction around the central unit cell &#39;</span>
@@ -435,7 +438,7 @@
     <span class="n">cif_path_without_ext</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------------&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; mcal 0.6.0 (2026/05/14) by Matsui Lab. &#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; mcal 0.7.0 (2026/05/21) by Matsui Lab. &#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;----------------------------------------&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">:</span>
@@ -783,6 +786,43 @@
                 <span class="s1">&#39;mobility_value&#39;</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
                 <span class="s1">&#39;mobility_vector&#39;</span><span class="p">:</span> <span class="n">vector</span>
             <span class="p">},</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">json</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mcal_version</span> <span class="o">=</span> <span class="n">_pkg_version</span><span class="p">(</span><span class="s1">&#39;yu-mcal&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PackageNotFoundError</span><span class="p">:</span>
+            <span class="n">mcal_version</span> <span class="o">=</span> <span class="s1">&#39;unknown&#39;</span>
+        <span class="n">backend</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;gpu4pyscf&#39;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">gpu4pyscf</span>
+                   <span class="k">else</span> <span class="s1">&#39;pyscf&#39;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">pyscf</span>
+                   <span class="k">else</span> <span class="s1">&#39;orca&#39;</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">orca</span>
+                   <span class="k">else</span> <span class="s1">&#39;gaussian&#39;</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">rcal</span><span class="o">.</span><span class="n">intermediate_energies</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;schema_version&#39;</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;mcal_version&#39;</span><span class="p">:</span> <span class="n">mcal_version</span><span class="p">,</span>
+            <span class="s1">&#39;input_file&#39;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="s1">&#39;osc_type&#39;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">osc_type</span><span class="p">,</span>
+            <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s1">&#39;backend&#39;</span><span class="p">:</span> <span class="n">backend</span><span class="p">,</span>
+            <span class="s1">&#39;temperature_K&#39;</span><span class="p">:</span> <span class="mf">300.0</span><span class="p">,</span>
+            <span class="s1">&#39;reorganization_energy_eV&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">reorg_energy</span><span class="p">),</span>
+            <span class="s1">&#39;reorganization_intermediate_energies_eV&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;neutral_at_neutral_geom&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                <span class="s1">&#39;ion_at_neutral_geom&#39;</span><span class="p">:</span>     <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+                <span class="s1">&#39;ion_at_ion_geom&#39;</span><span class="p">:</span>         <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                <span class="s1">&#39;neutral_at_ion_geom&#39;</span><span class="p">:</span>     <span class="nb">float</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;transfer_integrals_eV&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="n">s</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">t</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">:</span> <span class="n">j</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">transfer_integrals</span>
+            <span class="p">],</span>
+            <span class="s1">&#39;diffusion_coefficient_tensor_cm2_per_s&#39;</span><span class="p">:</span> <span class="n">diffusion_coef_tensor</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;mobility_tensor_cm2_per_Vs&#39;</span><span class="p">:</span> <span class="n">mu</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;mobility_eigenvalues_cm2_per_Vs&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;mobility_eigenvectors&#39;</span><span class="p">:</span> <span class="n">vector</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+        <span class="p">}</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">cif_path_without_ext</span><span class="si">}</span><span class="s1">_result.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">plot_plane</span><span class="p">:</span>
         <span class="n">plot_mobility_2d</span><span class="p">(</span>

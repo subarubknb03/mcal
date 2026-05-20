@@ -295,7 +295,7 @@
     <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------------------&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; rcal 1.0.0 (2026/05/14) by Matsui Lab. &#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; rcal 1.1.0 (2026/05/21) by Matsui Lab. &#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------------------------------------&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Input File Name: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">Rcal</span><span class="o">.</span><span class="n">print_timestamp</span><span class="p">()</span>
@@ -559,6 +559,7 @@
 
         <span class="n">energy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extract_energy</span><span class="p">(</span><span class="n">gjf</span><span class="p">,</span> <span class="n">only_read</span><span class="o">=</span><span class="n">only_read_neutral</span><span class="p">,</span> <span class="n">is_output_detail</span><span class="o">=</span><span class="n">is_output_detail</span><span class="p">,</span> <span class="n">skip_cal</span><span class="o">=</span><span class="n">skip_neutral</span><span class="p">))</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">intermediate_energies</span> <span class="o">=</span> <span class="n">energy</span>
         <span class="k">return</span> <span class="p">((</span><span class="n">energy</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">energy</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">energy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">energy</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
 
 
