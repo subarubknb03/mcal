@@ -1,8 +1,10 @@
 """mcal"""
 import argparse
 import functools
+import json
 import pickle
 import shutil
+from importlib.metadata import PackageNotFoundError, version as _pkg_version
 from pathlib import Path
 from time import time
 from typing import Dict, List, Literal, Optional, Tuple, Union
@@ -102,6 +104,7 @@ def main():
         action='store_true'
     )
     parser.add_argument('-p', '--pickle', help='save to pickle the result of calculation', action='store_true')
+    parser.add_argument('-j', '--json', help='save the result of calculation as JSON', action='store_true')
     parser.add_argument(
         '--cellsize',
         help='number of unit cells to expand in each direction around the central unit cell '
@@ -198,7 +201,7 @@ def main():
     cif_path_without_ext = f'{directory}/{filename}'
 
     print('----------------------------------------')
-    print(' mcal 0.6.0 (2026/05/14) by Matsui Lab. ')
+    print(' mcal 0.7.0 (2026/05/21) by Matsui Lab. ')
     print('----------------------------------------')
 
     if args.read_pickle:
@@ -546,6 +549,43 @@ def main():
                 'mobility_value': value,
                 'mobility_vector': vector
             }, f)
+
+    if args.json:
+        try:
+            mcal_version = _pkg_version('yu-mcal')
+        except PackageNotFoundError:
+            mcal_version = 'unknown'
+        backend = ('gpu4pyscf' if args.gpu4pyscf
+                   else 'pyscf' if args.pyscf
+                   else 'orca' if args.orca
+                   else 'gaussian')
+        e = rcal.intermediate_energies
+        result = {
+            'schema_version': '1.0',
+            'mcal_version': mcal_version,
+            'input_file': Path(args.file).name,
+            'osc_type': args.osc_type,
+            'method': args.method,
+            'backend': backend,
+            'temperature_K': 300.0,
+            'reorganization_energy_eV': float(reorg_energy),
+            'reorganization_intermediate_energies_eV': {
+                'neutral_at_neutral_geom': float(e[0]),
+                'ion_at_neutral_geom':     float(e[1]),
+                'ion_at_ion_geom':         float(e[2]),
+                'neutral_at_ion_geom':     float(e[3]),
+            },
+            'transfer_integrals_eV': [
+                {'s': s, 't': t, 'i': i, 'j': j, 'k': k, 'value': float(v)}
+                for (s, t, i, j, k, v) in transfer_integrals
+            ],
+            'diffusion_coefficient_tensor_cm2_per_s': diffusion_coef_tensor.tolist(),
+            'mobility_tensor_cm2_per_Vs': mu.tolist(),
+            'mobility_eigenvalues_cm2_per_Vs': value.tolist(),
+            'mobility_eigenvectors': vector.tolist(),
+        }
+        with open(f'{cif_path_without_ext}_result.json', 'w') as f:
+            json.dump(result, f, indent=2)
 
     if args.plot_plane:
         plot_mobility_2d(
