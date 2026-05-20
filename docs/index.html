@@ -582,6 +582,16 @@ for transfer integral calculations.</p>
 <li><p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">mcal</span> <span class="pre">xxx.cif</span> <span class="pre">p</span> <span class="pre">-p</span></code></p></li>
 </ul>
 </section>
+<section id="j-json">
+<h5><code class="docutils literal notranslate"><span class="pre">-j,</span> <span class="pre">--json</span></code><a class="headerlink" href="#j-json" title="Link to this heading">¶</a></h5>
+<p>Save calculation results to a JSON file (<code class="docutils literal notranslate"><span class="pre">&lt;input&gt;_result.json</span></code>). Contains
+reorganization energy (with intermediate energies), transfer integrals,
+diffusion coefficient tensor, mobility tensor, eigenvalues, and eigenvectors,
+along with metadata (mcal version, method, backend). Can be combined with <code class="docutils literal notranslate"><span class="pre">-p</span></code>.</p>
+<ul class="simple">
+<li><p><strong>Example</strong>: <code class="docutils literal notranslate"><span class="pre">mcal</span> <span class="pre">xxx.cif</span> <span class="pre">p</span> <span class="pre">-j</span></code></p></li>
+</ul>
+</section>
 <section id="plot-plane-plane">
 <h5><code class="docutils literal notranslate"><span class="pre">--plot-plane</span> <span class="pre">&lt;plane&gt;</span></code><a class="headerlink" href="#plot-plane-plane" title="Link to this heading">¶</a></h5>
 <p>Plot mobility tensor as a 2D polar plot on specified crystallographic plane.</p>
@@ -993,6 +1003,7 @@ Resource for the Molecular Sciences Community, <em>J. Chem. Inf. Model.</em> <st
 </li>
 <li><a class="reference internal" href="#output-settings">Output Settings</a><ul>
 <li><a class="reference internal" href="#p-pickle"><code class="docutils literal notranslate"><span class="pre">-p,</span> <span class="pre">--pickle</span></code></a></li>
+<li><a class="reference internal" href="#j-json"><code class="docutils literal notranslate"><span class="pre">-j,</span> <span class="pre">--json</span></code></a></li>
 <li><a class="reference internal" href="#plot-plane-plane"><code class="docutils literal notranslate"><span class="pre">--plot-plane</span> <span class="pre">&lt;plane&gt;</span></code></a></li>
 </ul>
 </li>
