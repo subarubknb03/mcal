@@ -141,6 +141,7 @@ class RcalPySCF(Rcal):
         )
         energy.append(e3)
 
+        self.intermediate_energies = energy
         return (energy[3] - energy[2]) + (energy[1] - energy[0])
 
     def _build_mol(self, atoms: List[Tuple], charge: int, spin: int, basis: str) -> gto.Mole:

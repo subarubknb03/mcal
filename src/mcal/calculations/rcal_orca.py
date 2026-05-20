@@ -162,6 +162,7 @@ class RcalORCA(Rcal):
         )
         energy.append(e3)
 
+        self.intermediate_energies = energy
         return (energy[3] - energy[2]) + (energy[1] - energy[0])
 
     def _build_calculator(

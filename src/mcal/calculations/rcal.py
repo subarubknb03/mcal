@@ -58,7 +58,7 @@ def main():
     args = parser.parse_args()
 
     print('---------------------------------------')
-    print(' rcal 1.0.0 (2026/05/14) by Matsui Lab. ')
+    print(' rcal 1.1.0 (2026/05/21) by Matsui Lab. ')
     print('---------------------------------------')
     print(f'\nInput File Name: {args.file}')
     Rcal.print_timestamp()
@@ -311,6 +311,7 @@ class Rcal:
 
         energy.append(self.extract_energy(gjf, only_read=only_read_neutral, is_output_detail=is_output_detail, skip_cal=skip_neutral))
 
+        self.intermediate_energies = energy
         return ((energy[3] - energy[2]) + (energy[1] - energy[0]))
 
     def check_extension_log(self, gjf: str) -> None:
