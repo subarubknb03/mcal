@@ -12,7 +12,7 @@
 * NumPy
 * Pandas
 * Matplotlib
-* yu-tcal==5.0.1
+* yu-tcal>=5.0.2
 
 ## 量子化学計算ツール
 以下のうちいずれか一つが必要です：

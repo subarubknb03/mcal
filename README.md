@@ -11,7 +11,7 @@
 * NumPy
 * Pandas
 * Matplotlib
-* yu-tcal==5.0.1
+* yu-tcal>=5.0.2
 
 ## Quantum Chemistry Calculation Tools
 At least one of the following is required:
