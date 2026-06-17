@@ -1,13 +1,13 @@
 [project]
 name = "yu-mcal"
-version = "0.7.0"
+version = "0.7.1"
 description = "Program for the calculation of mobility tensor for organic semiconductor crystals"
 requires-python = ">=3.11"
 dependencies = [
     "matplotlib>=3.9.4",
     "numpy>=2.0.2",
     "pandas>=2.3.3",
-    "yu-tcal==5.0.1",
+    "yu-tcal>=5.0.2",
 ]
 authors = [
     {name = "Hiroyuki Matsui", email = "h-matsui@yz.yamagata-u.ac.jp"},

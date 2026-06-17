@@ -2019,7 +2019,7 @@ wheels = [
 
 [[package]]
 name = "yu-mcal"
-version = "0.7.0"
+version = "0.7.1"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
@@ -2092,7 +2092,7 @@ requires-dist = [
     { name = "pyscf", marker = "extra == 'gpu4pyscf-cuda12'", specifier = ">=2.12.1" },
     { name = "pyscf", marker = "extra == 'gpu4pyscf-cuda13'", specifier = ">=2.12.1" },
     { name = "pyscf", marker = "extra == 'pyscf'", specifier = ">=2.12.1" },
-    { name = "yu-tcal", specifier = "==5.0.1" },
+    { name = "yu-tcal", specifier = ">=5.0.2" },
 ]
 provides-extras = ["pyscf", "gpu4pyscf-cuda11", "gpu4pyscf-cuda12", "gpu4pyscf-cuda13", "orca"]
 
@@ -2107,12 +2107,12 @@ dev = [
 
 [[package]]
 name = "yu-tcal"
-version = "5.0.1"
+version = "5.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b3/80/dd83d2f0ddc1d978228b3c3a213eda19dff222588106710eb3b3c3ea08ad/yu_tcal-5.0.1.tar.gz", hash = "sha256:16a2c635df56c287c698f350c016376b1660be8b42a591126efb896245b4dc13", size = 54788087, upload-time = "2026-05-11T02:55:32.124Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/e9/cbe0d9655581dbfc9ea22525539a17863b900ea824477b50a32beb1bd1d3/yu_tcal-5.0.2.tar.gz", hash = "sha256:20917074ecd086974934d20f302a0335ab27f4127f7c81c7e9ee75d1c1c8c88d", size = 54792230, upload-time = "2026-06-17T16:25:45.007Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2d/55/06c83b3195b73b893f1f3d2405a9929ba4affb1181482e8d08ad257e4576/yu_tcal-5.0.1-py3-none-any.whl", hash = "sha256:451ba14bf2809a332c565a221b091c310ff80bf786a52083152ba13c0f5562dd", size = 25577, upload-time = "2026-05-11T02:55:25.377Z" },
+    { url = "https://files.pythonhosted.org/packages/85/6c/cfe413ddd3a307a9aa1d3b67d06dae78c3480662f11f46b5ae131665a0e3/yu_tcal-5.0.2-py3-none-any.whl", hash = "sha256:0a86de0053b6f7fa977f403acc6a96be08b8114fc9a56c4b86661752c1cafb6c", size = 25913, upload-time = "2026-06-17T16:25:24.046Z" },
 ]
