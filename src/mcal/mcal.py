@@ -4,7 +4,6 @@ import functools
 import json
 import pickle
 import shutil
-from importlib.metadata import PackageNotFoundError, version as _pkg_version
 from pathlib import Path
 from time import time
 from typing import Dict, List, Literal, Optional, Tuple, Union
@@ -200,9 +199,11 @@ def main():
     filename = cif_file.stem
     cif_path_without_ext = f'{directory}/{filename}'
 
-    print('----------------------------------------')
-    print(' mcal 0.7.1 (2026/06/18) by Matsui Lab. ')
-    print('----------------------------------------')
+    from mcal import __version__, __date__
+    banner = f' mcal {__version__} ({__date__}) by Matsui Lab. '
+    print('-' * len(banner))
+    print(banner)
+    print('-' * len(banner))
 
     if args.read_pickle:
         read_pickle(args.file, args.plot_plane)
@@ -551,10 +552,7 @@ def main():
             }, f)
 
     if args.json:
-        try:
-            mcal_version = _pkg_version('yu-mcal')
-        except PackageNotFoundError:
-            mcal_version = 'unknown'
+        mcal_version = __version__
         backend = ('gpu4pyscf' if args.gpu4pyscf
                    else 'pyscf' if args.pyscf
                    else 'orca' if args.orca

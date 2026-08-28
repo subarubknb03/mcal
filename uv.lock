@@ -2019,7 +2019,6 @@ wheels = [
 
 [[package]]
 name = "yu-mcal"
-version = "0.7.1"
 source = { editable = "." }
 dependencies = [
     { name = "matplotlib" },
@@ -2094,7 +2093,7 @@ requires-dist = [
     { name = "pyscf", marker = "extra == 'pyscf'", specifier = ">=2.12.1" },
     { name = "yu-tcal", specifier = ">=5.0.2" },
 ]
-provides-extras = ["pyscf", "gpu4pyscf-cuda11", "gpu4pyscf-cuda12", "gpu4pyscf-cuda13", "orca"]
+provides-extras = ["gpu4pyscf-cuda11", "gpu4pyscf-cuda12", "gpu4pyscf-cuda13", "orca", "pyscf"]
 
 [package.metadata.requires-dev]
 dev = [
