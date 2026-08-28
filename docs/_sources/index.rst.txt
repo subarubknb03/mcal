@@ -1,5 +1,5 @@
 ==================================
-mcal Documentation
+mcal |version| documentation
 ==================================
 
 .. image:: https://img.shields.io/badge/python-3.11%20or%20newer-blue
