@@ -1,14 +1,18 @@
 ==================================
-mcal Documentation
+mcal |version| documentation
 ==================================
 
-.. image:: https://img.shields.io/badge/python-3.9%20or%20newer-blue
+.. image:: https://img.shields.io/badge/python-3.11%20or%20newer-blue
    :target: https://www.python.org
    :alt: Python
 
 .. image:: https://img.shields.io/badge/License-MIT-blue.svg
    :target: https://opensource.org/licenses/MIT
    :alt: License: MIT
+
+.. image:: https://img.shields.io/pypi/v/yu-mcal
+   :target: https://pypi.org/project/yu-mcal/
+   :alt: PyPI
 
 Overview
 ========
@@ -626,8 +630,8 @@ Authors
 
 `Matsui Laboratory, Research Center for Organic Electronics (ROEL), Yamagata University <https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html>`_
 
-* Hiroyuki Matsui
 * Koki Ozawa
+* Hiroyuki Matsui
 
 Email: h-matsui[at]yz.yamagata-u.ac.jp (Please replace ``[at]`` with ``@``)
 

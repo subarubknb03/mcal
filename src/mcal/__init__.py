@@ -1,3 +1,6 @@
+__version__ = "0.7.1"
+__date__ = "2026/06/18"
+
 from .calculations.hopping_mobility_model import (
     cal_pinv,
     marcus_rate,
@@ -18,6 +21,8 @@ from .mcal import (
 
 
 __all__ = [
+    '__version__',
+    '__date__',
     'cal_pinv',
     'marcus_rate',
     'mobility_tensor',

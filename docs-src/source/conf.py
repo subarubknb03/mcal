@@ -1,24 +1,23 @@
 import os
-import subprocess
+import re
 import sys
 
 
 sys.path.insert(0, os.path.abspath("../../src"))
 
-def get_version():
-    try:
-        tag = subprocess.check_output(
-            ["git", "describe", "--tags", "--abbrev=0"], universal_newlines=True
-        ).strip()
-        return tag
-    except subprocess.CalledProcessError:
-        return "0.1.0"
-
+def _get_version() -> str:
+    init_path = os.path.join(os.path.dirname(__file__), "../../src/mcal/__init__.py")
+    with open(init_path) as f:
+        match = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', f.read(), re.MULTILINE)
+    if match:
+        return match.group(1)
+    raise RuntimeError("Unable to find __version__ in mcal/__init__.py")
 
 project = "mcal"
 copyright = "2025, Hiroyuki Matsui, Koki Ozawa"
 author = "Hiroyuki Matsui, Koki Ozawa"
-# release = get_version()
+version = _get_version()
+release = version
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

@@ -1,6 +1,7 @@
 # mcal: 有機半導体結晶の移動度テンソル計算プログラム
 [![Python](https://img.shields.io/badge/python-3.11%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/yu-mcal)](https://pypi.org/project/yu-mcal/)
 [![docs](https://img.shields.io/badge/docs-here-11419572)](https://matsui-lab-yamagata.github.io/mcal/)
 
 
@@ -418,7 +419,7 @@ CIFファイルにはさまざまな形式があり、mcalで読み込めない�
 
 # 著者
 [山形大学 有機エレクトロニクス研究センター (ROEL) 松井研究室](https://matsui-lab.yz.yamagata-u.ac.jp/index.html)  
-松井 弘之、尾沢 昂輝  
+尾沢 昂輝、松井 弘之  
 Email: h-matsui[at]yz.yamagata-u.ac.jp  
 [at]を@に置き換えてください
 

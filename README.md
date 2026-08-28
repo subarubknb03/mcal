@@ -1,6 +1,7 @@
 # mcal: Program for the calculation of mobility tensor for organic semiconductor crystals
 [![Python](https://img.shields.io/badge/python-3.11%20or%20newer-blue)](https://www.python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![PyPI](https://img.shields.io/pypi/v/yu-mcal)](https://pypi.org/project/yu-mcal/)
 [![docs](https://img.shields.io/badge/docs-here-11419572)](https://matsui-lab-yamagata.github.io/mcal/)
 
 # Overview
@@ -417,7 +418,7 @@ CIF files come in various formats, and some may not be readable by mcal. Please 
 
 # Authors
 [Matsui Laboratory, Research Center for Organic Electronics (ROEL), Yamagata University](https://matsui-lab.yz.yamagata-u.ac.jp/index-e.html)  
-Hiroyuki Matsui, Koki Ozawa  
+Koki Ozawa, Hiroyuki Matsui  
 Email: h-matsui[at]yz.yamagata-u.ac.jp  
 Please replace [at] with @  
 
